@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                background-color: #e3f2fd;
+            }
+            .profile-card {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
+            }
+            .profile-image {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+            .portfolio-card {
+                display: inline-block;
+                width: 200px;
+                margin: 10px;
+                border: 1px solid #ccc;
+                text-align: center;
+                padding: 10px;
+            }
+            .portfolio-image {
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="profile-card">
+            <img class="profile-image" src="https://via.placeholder.com/100" alt="Profile Image">
+            <div>
+                <h2 id="profile-name">Artist Name</h2>
+            </div>
+        </div>
+
+        <div id="portfolio">
+
+        </div>
+
+        <template id="portfolio-card-template">
+            <div class="portfolio-card">
+                <h3 class="portfolio-title"></h3>
+                <img class="portfolio-image" src="" alt="Portfolio Image">
+            </div>
+        </template>
+
+        <script>
+        const artist = {
+            name: "Van Gogh",
+            portfolio: [
+                {
+                    title: "portrait",
+                    url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/436532/1671316/main-image"
+                },
+                {
+                    title: "sky",
+                    url: "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg"
+                }
+            ]
+        };
+
+        function generatePortfolioCards() {
+            const template = document.getElementById("portfolio-card-template");
+
+            artist.portfolio.forEach(item => {
+                const portfolioCard = template.content.cloneNode(true);
+                portfolioCard.querySelector(".portfolio-title").textContent = item.title;
+                portfolioCard.querySelector(".portfolio-image").src = item.url;
+                document.querySelector("#portfolio").appendChild(portfolioCard);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("profile-name").textContent = artist.name;
+            generatePortfolioCards();
+        });
+        </script>
+    </body>
+</html>

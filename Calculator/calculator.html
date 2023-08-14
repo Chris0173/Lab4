@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculator</h1>
+        <input type="number" id="num1" placeholder="Enter the first number">
+        <input type="number" id="num2" placeholder="Enter the second number">
+        <select id="operation">
+            <option value="add">Addition</option>
+            <option value="subtract">Subtraction</option>
+            <option value="multiply">Multiplication</option>
+            <option value="divide">Division</option>
+        </select>
+        <button id="calculate">Calculate</button>
+        <button id="clear">Clear</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const num1Input = document.getElementById('num1');
+            const num2Input = document.getElementById('num2');
+            const operationSelect = document.getElementById('operation');
+            const calculateButton = document.getElementById('calculate');
+            const clearButton = document.getElementById('clear');
+            const resultDisplay = document.getElementById('result');
+
+            calculateButton.addEventListener('click', function() {
+                const num1 = parseFloat(num1Input.value);
+                const num2 = parseFloat(num2Input.value);
+                const operation = operationSelect.value;
+
+                let result;
+
+                switch (operation) {
+                    case 'add':
+                        result = num1 + num2;
+                        break;
+                    case 'subtract':
+                        result = num1 - num2;
+                        break;
+                    case 'multiply':
+                        result = num1 * num2;
+                        break;
+                    case 'divide':
+                        if (num2 !== 0) {
+                            result = num1 / num2;
+                        } else {
+                            result = "Cannot divide by zero";
+                        }
+                        break;
+                    default:
+                        result = "Invalid operation";
+                }
+
+                resultDisplay.textContent = `Result: ${result}`;
+            });
+
+            clearButton.addEventListener('click', function() {
+                num1Input.value = '';
+                num2Input.value = '';
+                resultDisplay.textContent = '';
+            });
+        });
+    </script>
+</body>
+</html>
