@@ -3,7 +3,56 @@
 <head>
     <title>News Page</title>
     <style>
-     
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .news-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .news-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+        }
+
+        .news-form {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        #title,
+        #content {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        #add-news {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #add-news:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -14,13 +63,17 @@
 
     <div class="news-form">
         <h2>Add News</h2>
-        <form id="add-news-form">
+        <div>
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" required><br><br>
+        </div>
+        <div>
             <label for="content">Content:</label><br>
             <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
-            <button type="submit" id="submit-news">Submit</button>
-        </form>
+        </div>
+        <div>
+            <button id="add-news">Add News</button>
+        </div>
     </div>
 
     <script>
@@ -31,7 +84,9 @@
         ];
 
         const newsList = document.getElementById('news-list');
-        const addNewsForm = document.getElementById('add-news-form');
+        const addNewsButton = document.getElementById('add-news');
+        const titleInput = document.getElementById('title');
+        const contentInput = document.getElementById('content');
 
         function displayNews() {
             newsList.innerHTML = news.map(item => `
@@ -42,17 +97,6 @@
             `).join('');
         }
 
-        function updateNews() {
-            const updatedNews = [
-                { id: 1, title: 'Updated News1', content: "new bla" },
-                { id: 2, title: 'Updated News2', content: "new ble" },
-                { id: 3, title: 'Updated News3', content: "new blu" }
-            ];
-
-            news.push(...updatedNews);
-            displayNews();
-        }
-
         function addNews(newTitle, newContent) {
             const newNewsItem = { id: news.length + 1, title: newTitle, content: newContent };
             news.push(newNewsItem);
@@ -61,11 +105,7 @@
             console.log('News item added:', newNewsItem);
         }
 
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            const titleInput = document.getElementById('title');
-            const contentInput = document.getElementById('content');
+        function handleAddNews() {
             const newTitle = titleInput.value;
             const newContent = contentInput.value;
 
@@ -77,14 +117,11 @@
         }
 
         function initializePage() {
-            updateNews();
             displayNews();
-            
-            addNewsForm.addEventListener('submit', handleSubmit);
+            addNewsButton.addEventListener('click', handleAddNews);
         }
 
         window.addEventListener('load', initializePage);
     </script>
 </body>
 </html>
-
